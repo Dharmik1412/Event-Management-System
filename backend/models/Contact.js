@@ -8,13 +8,9 @@ const contactSchema = new mongoose.Schema(
     eventType: { type: String },
     queryType: { type: String },
     message: { type: String, required: true },
-    status: {
-      type: String,
-      default: "New",
-      enum: ["New", "In Progress", "Resolved"],
-    },
     replyMessage: String,
-    replyMethod: String, // "email" | "phone"
+    // "email" | "phone"
+    replyMethod: String, 
     status: { type: String, default: "New" }
   },
   { timestamps: true }

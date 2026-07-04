@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 
 function Navigation() {
   const navigate = useNavigate();
@@ -7,9 +9,43 @@ function Navigation() {
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showNotificationMenu, setShowNotificationMenu] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   // Always read latest user from localStorage
   const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        const res = await axios.get(
+          "http://localhost:5000/api/notifications",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setNotifications(res.data.data);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchNotifications();
+
+  }, []);
+
+  const unreadCount = notifications.filter(
+    (item) => item.isRead === false
+  ).length;
 
   const hideNavbar =
     location.pathname === "/" ||
@@ -71,6 +107,69 @@ function Navigation() {
         {/* Right Side */}
         <div className="flex items-center gap-3">
 
+          {user && (
+            <div className="relative hidden md:block">
+
+              <button
+                onClick={() =>
+                  setShowNotificationMenu(!showNotificationMenu)
+                }
+                className="relative bg-slate-800 hover:bg-slate-700 p-3 rounded-xl transition"
+              >
+                🔔
+
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {unreadCount}
+                  </span>
+                )}
+
+              </button>
+
+              {showNotificationMenu && (
+
+                <div className="absolute right-0 mt-3 w-80 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl">
+
+                  <div className="p-4 border-b border-slate-700 font-semibold">
+                    Notifications
+                  </div>
+
+                  {notifications.length === 0 ? (
+
+                    <p className="p-4 text-slate-400">
+                      No notifications
+                    </p>
+
+                  ) : (
+
+                    notifications.map((item) => (
+
+                      <div
+                        key={item._id}
+                        className="border-b border-slate-800 p-4 hover:bg-slate-800"
+                      >
+
+                        <h3 className="font-semibold">
+                          {item.title}
+                        </h3>
+
+                        <p className="text-sm text-slate-400 mt-1">
+                          {item.message}
+                        </p>
+
+                      </div>
+
+                    ))
+
+                  )}
+
+                </div>
+
+              )}
+
+            </div>
+          )}
+
           {user ? (
             <div className="relative hidden md:block">
 
@@ -125,13 +224,77 @@ function Navigation() {
           )}
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-            className="md:hidden text-3xl"
-          >
-            ☰
-          </button>
+          <div className="md:hidden flex items-center gap-3">
 
+            {user && (
+              <div className="relative">
+
+                <button
+                  onClick={() =>
+                    setShowNotificationMenu(!showNotificationMenu)
+                  }
+                  className="relative text-2xl"
+                >
+                  🔔
+
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                      {unreadCount}
+                    </span>
+                  )}
+
+                </button>
+
+                {showNotificationMenu && (
+
+                  <div className="absolute right-0 mt-3 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-xl max-h-80 overflow-y-auto z-50">
+
+                    <div className="p-3 border-b border-slate-700 font-semibold">
+                      Notifications
+                    </div>
+
+                    {notifications.length === 0 ? (
+
+                      <p className="p-4 text-slate-400">
+                        No notifications
+                      </p>
+
+                    ) : (
+
+                      notifications.map((item) => (
+
+                        <div
+                          key={item._id}
+                          className="p-4 border-b border-slate-800 hover:bg-slate-800"
+                        >
+                          <h3 className="font-semibold">
+                            {item.title}
+                          </h3>
+
+                          <p className="text-sm text-slate-400 mt-1">
+                            {item.message}
+                          </p>
+                        </div>
+
+                      ))
+
+                    )}
+
+                  </div>
+
+                )}
+
+              </div>
+            )}
+
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="text-3xl"
+            >
+              ☰
+            </button>
+
+          </div>
         </div>
 
       </div>

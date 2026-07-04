@@ -34,7 +34,6 @@ const eventRequestSchema = new mongoose.Schema(
       required: true,
     },
 
-    // 🔥 Stores complete venue, decoration & catering selections
     eventDetails: {
       type: Object,
       default: {},

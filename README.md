@@ -182,7 +182,7 @@ JWT_SECRET=your_secret_key
 
 * Image Upload
 * Email Notifications
-* Real-time Notifications
+* Real-time Notifications Using Socket.IO
 * Online Payment Integration
 * Event Calendar
 * Analytics Dashboard

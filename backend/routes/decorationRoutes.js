@@ -14,10 +14,9 @@ import {
 
 const router = express.Router();
 
-// PUBLIC
 router.get("/", getDecorations);
 
-// ADMIN
+
 router.post("/", protect, adminOnly, createDecoration);
 
 router.put("/:id", protect, adminOnly, updateDecoration);

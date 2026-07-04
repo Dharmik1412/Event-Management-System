@@ -1,8 +1,5 @@
 import Catering from "../models/Catering.js";
 
-/* ===========================
-   GET ALL CATERING
-=========================== */
 export const getCatering = async (req, res) => {
   try {
     const { city } = req.query;
@@ -29,9 +26,7 @@ export const getCatering = async (req, res) => {
   }
 };
 
-/* ===========================
-   GET SINGLE CATERING
-=========================== */
+
 export const getSingleCatering = async (req, res) => {
   try {
     const catering = await Catering.findById(req.params.id);
@@ -56,9 +51,7 @@ export const getSingleCatering = async (req, res) => {
   }
 };
 
-/* ===========================
-   CREATE
-=========================== */
+
 export const createCatering = async (req, res) => {
   try {
 
@@ -78,9 +71,7 @@ export const createCatering = async (req, res) => {
   }
 };
 
-/* ===========================
-   UPDATE BASIC DETAILS
-=========================== */
+
 export const updateCatering = async (req, res) => {
   try {
 
@@ -114,9 +105,7 @@ export const updateCatering = async (req, res) => {
   }
 };
 
-/* ===========================
-   DELETE
-=========================== */
+
 export const deleteCatering = async (req, res) => {
   try {
 
@@ -142,9 +131,7 @@ export const deleteCatering = async (req, res) => {
   }
 };
 
-/* ===========================
-   UPDATE MENU & LIMITS
-=========================== */
+
 export const updateMenu = async (req, res) => {
   try {
 

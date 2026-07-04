@@ -16,7 +16,7 @@ const venueSchema = new mongoose.Schema({
     required: true,
   },
 
-  // Base venue price (used in quotation calculation)
+  // Base venue price
   price: {
     type: Number,
     required: true,

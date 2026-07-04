@@ -9,9 +9,6 @@ const generateToken = (id) => {
   });
 };
 
-// =======================
-// REGISTER USER
-// =======================
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
@@ -36,7 +33,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    // response (IMPORTANT FORMAT)
+    // response 
     res.status(201).json({
       user: {
         id: user._id,
@@ -53,9 +50,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// =======================
-// LOGIN USER
-// =======================
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -76,7 +71,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    // response (IMPORTANT FORMAT)
+    // response 
     res.json({
       user: {
         id: user._id,

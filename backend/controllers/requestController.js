@@ -1,8 +1,6 @@
 import EventRequest from "../models/EventRequest.js";
+import Notification from "../models/Notification.js";
 
-//
-// CREATE REQUEST
-//
 export const createRequest = async (req, res) => {
   try {
     const {
@@ -50,9 +48,7 @@ export const createRequest = async (req, res) => {
   }
 };
 
-//
-// ADMIN - GET ALL REQUESTS
-//
+
 export const getRequests = async (req, res) => {
   try {
     const requests = await EventRequest.find()
@@ -72,9 +68,7 @@ export const getRequests = async (req, res) => {
   }
 };
 
-//
-// CUSTOMER - GET MY REQUESTS
-//
+
 export const getMyRequests = async (req, res) => {
   try {
     const requests = await EventRequest.find({
@@ -94,9 +88,7 @@ export const getMyRequests = async (req, res) => {
   }
 };
 
-//
-// ADMIN - UPDATE STATUS
-//
+
 export const updateRequestStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -133,9 +125,7 @@ export const updateRequestStatus = async (req, res) => {
   }
 };
 
-//
-// ADMIN - SEND QUOTATION
-//
+
 export const sendQuotation = async (req, res) => {
   try {
     const { quotationAmount, quotationNotes } = req.body;
@@ -159,8 +149,13 @@ export const sendQuotation = async (req, res) => {
     request.quotationAmount = quotationAmount;
     request.quotationNotes = quotationNotes;
     request.status = "Quoted";
-
     await request.save();
+
+    await Notification.create({
+      userId: request.customerId,
+      title: "Quotation Received",
+      message: `Your quotation of ₹${quotationAmount} has been sent for your ${request.eventType} event.`,
+    });
 
     res.status(200).json({
       success: true,
@@ -175,9 +170,7 @@ export const sendQuotation = async (req, res) => {
   }
 };
 
-//
-// CUSTOMER - APPROVE QUOTATION
-//
+
 export const approveQuotation = async (req, res) => {
   try {
     const request = await EventRequest.findById(req.params.id);
@@ -220,9 +213,7 @@ export const approveQuotation = async (req, res) => {
   }
 };
 
-//
-// CUSTOMER - REJECT QUOTATION
-//
+
 export const rejectQuotation = async (req, res) => {
   try {
     const request = await EventRequest.findById(req.params.id);
