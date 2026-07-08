@@ -25,7 +25,7 @@ const ManageVenue = () => {
 
     const fetchVenues = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/venues");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/venues`);
             setVenues(res.data.data);
         } catch (err) {
             console.log(err);
@@ -91,7 +91,7 @@ const ManageVenue = () => {
 
             if (editingId) {
                 await axios.put(
-                    `http://localhost:5000/api/venues/${editingId}`,
+                    `${import.meta.env.VITE_API_URL}/api/venues/${editingId}`,
                     form,
                     {
                         headers: {
@@ -103,7 +103,7 @@ const ManageVenue = () => {
                 alert("Venue Updated");
             } else {
                 await axios.post(
-                    "http://localhost:5000/api/venues",
+                    `${import.meta.env.VITE_API_URL}/api/venues`,
                     form,
                     {
                         headers: {
@@ -155,7 +155,7 @@ const ManageVenue = () => {
 
         try {
             await axios.delete(
-                `http://localhost:5000/api/venues/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/venues/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

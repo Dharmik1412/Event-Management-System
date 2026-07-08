@@ -10,7 +10,7 @@ const AdminContact = () => {
             const token = localStorage.getItem("token");
 
             const res = await axios.get(
-                "http://localhost:5000/api/contact",
+                 `${import.meta.env.VITE_API_URL}/api/contact`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ const AdminContact = () => {
             const token = localStorage.getItem("token");
 
             await axios.put(
-                `http://localhost:5000/api/contact/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/contact/${id}`,
                 { status },
                 {
                     headers: {
@@ -52,7 +52,7 @@ const AdminContact = () => {
         const token = localStorage.getItem("token");
 
         await axios.put(
-            `http://localhost:5000/api/contact/${msg._id}`,
+            `${import.meta.env.VITE_API_URL}/api/contact/${msg._id}`,
             {
                 replyMessage: reply[msg._id],
                 replyMethod: method,

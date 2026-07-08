@@ -19,7 +19,7 @@ const ManageCatering = () => {
   const fetchCatering = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/catering"
+        `${import.meta.env.VITE_API_URL}/api/catering`
       );
 
       setCatering(res.data.data || []);
@@ -39,7 +39,7 @@ const ManageCatering = () => {
       const token = localStorage.getItem("token");
 
       await axios.delete(
-        `http://localhost:5000/api/catering/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/catering/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ const ManageCatering = () => {
 
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/catering/${editingId}`,
+          `${import.meta.env.VITE_API_URL}/api/catering/${editingId}`,
           form,
           {
             headers: {
@@ -71,7 +71,7 @@ const ManageCatering = () => {
         );
       } else {
         await axios.post(
-          "http://localhost:5000/api/catering",
+          `${import.meta.env.VITE_API_URL}/api/catering`,
           form,
           {
             headers: {

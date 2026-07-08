@@ -25,7 +25,7 @@ const ManageMenu = () => {
     const fetchCatering = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:5000/api/catering/${id}`
+                `${import.meta.env.VITE_API_URL}/api/catering/${id}`
             );
 
             setCatering(res.data.data);
@@ -86,7 +86,7 @@ const ManageMenu = () => {
             const token = localStorage.getItem("token");
 
             await axios.put(
-                `http://localhost:5000/api/catering/${id}/menu`,
+                `${import.meta.env.VITE_API_URL}/api/catering/${id}/menu`,
                 {
                     menu: catering.menu,
                     limits,

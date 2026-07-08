@@ -112,9 +112,9 @@ const WeddingForm = () => {
     const fetchData = async () => {
       try {
         const [v, d, c] = await Promise.all([
-          axios.get(`http://localhost:5000/api/venues?city=${city}`),
-          axios.get(`http://localhost:5000/api/decorations?city=${city}`),
-          axios.get(`http://localhost:5000/api/catering?city=${city}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/venues?city=${city}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/decorations?city=${city}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/catering?city=${city}`),
         ]);
 
         console.log("VENUES:", v.data);
@@ -174,7 +174,7 @@ const WeddingForm = () => {
 
     };
 
-    await axios.post("http://localhost:5000/api/", payload, {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/`, payload, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

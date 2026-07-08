@@ -9,7 +9,7 @@ const MyRequests = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/my",
+        `${import.meta.env.VITE_API_URL}/api/my`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ const MyRequests = () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `http://localhost:5000/api/${id}/${type}`,
+        `${import.meta.env.VITE_API_URL}/api/${id}/${type}`,
         {},
         {
           headers: {

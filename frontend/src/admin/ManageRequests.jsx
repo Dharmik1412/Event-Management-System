@@ -14,7 +14,7 @@ const ManageRequests = () => {
       const token = localStorage.getItem("token");
 
       const { data } = await axios.get(
-        "http://localhost:5000/api/",
+        `${import.meta.env.VITE_API_URL}/api/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const ManageRequests = () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `http://localhost:5000/api/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/${id}`,
         { status },
         {
           headers: {
@@ -431,7 +431,7 @@ const ManageRequests = () => {
                       const token = localStorage.getItem("token");
 
                       await axios.put(
-                        `http://localhost:5000/api/${selectedRequest._id}/quotation`,
+                        `${import.meta.env.VITE_API_URL}/api/${selectedRequest._id}/quotation`,
                         {
                           quotationAmount:
                             finalAmount[selectedRequest._id] ??

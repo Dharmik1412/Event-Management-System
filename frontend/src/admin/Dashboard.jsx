@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/api/admin/stats", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/admin/stats`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:5000/api/", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

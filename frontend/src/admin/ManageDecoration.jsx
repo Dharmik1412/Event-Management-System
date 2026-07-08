@@ -16,7 +16,7 @@ const ManageDecoration = () => {
     const fetchDecorations = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:5000/api/decorations"
+                `${import.meta.env.VITE_API_URL}/api/decorations`
             );
 
             setDecorations(res.data.data || []);
@@ -38,7 +38,7 @@ const ManageDecoration = () => {
 
             if (editingId) {
                 await axios.put(
-                    `http://localhost:5000/api/decorations/${editingId}`,
+                    `${import.meta.env.VITE_API_URL}/api/decorations/${editingId}`,
                     form,
                     {
                         headers: {
@@ -48,7 +48,7 @@ const ManageDecoration = () => {
                 );
             } else {
                 await axios.post(
-                    "http://localhost:5000/api/decorations",
+                    `${import.meta.env.VITE_API_URL}/api/decorations`,
                     form,
                     {
                         headers: {
@@ -88,7 +88,7 @@ const ManageDecoration = () => {
             const token = localStorage.getItem("token");
 
             await axios.delete(
-                `http://localhost:5000/api/decorations/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/decorations/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
